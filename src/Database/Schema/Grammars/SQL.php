@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database\Schema\Grammars;
+namespace MuhmdRaouf\LaravelParatest\Database\Schema\Grammars;
 
 interface SQL
 {

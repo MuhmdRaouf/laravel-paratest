@@ -1,11 +1,11 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database\Schema;
+namespace MuhmdRaouf\LaravelParatest\Database\Schema;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert as PHPUnit;
-use Tonysm\LaravelParatest\Database\Connector;
+use MuhmdRaouf\LaravelParatest\Database\Connector;
 
 class BuilderTest extends TestCase
 {
@@ -26,41 +26,41 @@ class BuilderTest extends TestCase
     public function test_it_creates_database()
     {
         $options = [
-            'driver' => 'fakedriver',
+            'driver' => 'fake_driver',
             'database' => 'fakedb',
         ];
 
         $this->builder->createDatabase($options);
 
-        $this->connector->assertExecuted('CREATE DATABASE fakedb');
+        $this->connector->assertExecuted('CREATE DATABASE IF NOT EXISTS `fakedb`;');
     }
 
     /** @test */
     public function test_it_drops_database()
     {
         $options = [
-            'driver' => 'fakedriver',
+            'driver' => 'fake_driver',
             'database' => 'fakedb',
         ];
 
         $this->builder->dropDatabase($options);
 
-        $this->connector->assertExecuted('DROP DATABASE fakedb');
+        $this->connector->assertExecuted('DROP DATABASE IF EXISTS `fakedb`;');
     }
 
     /** @test */
     public function test_it_recreates_databases()
     {
         $options = [
-            'driver' => 'fakedriver',
+            'driver' => 'fake_driver',
             'database' => 'fakedb',
         ];
 
         $this->builder->recreateDatabase($options);
 
         $this->connector->assertExecutedQueriesCount(2);
-        $this->connector->assertExecuted('CREATE DATABASE fakedb');
-        $this->connector->assertExecuted('DROP DATABASE fakedb');
+        $this->connector->assertExecuted('CREATE DATABASE IF NOT EXISTS `fakedb`;');
+        $this->connector->assertExecuted('DROP DATABASE IF EXISTS `fakedb`;');
     }
 }
 
@@ -84,7 +84,7 @@ class FakeConnector implements Connector
         PHPUnit::assertGreaterThanOrEqual(
             1,
             $matches,
-            sprintf('Failed asserting that query "%s" was executed.', $sql)
+            "Failed asserting that query $sql was executed."
         );
     }
 
@@ -98,17 +98,12 @@ class FakeGrammar implements Grammars\SQL
 {
     public function compileCreateDatabase(array $options): string
     {
-        return sprintf(
-            'CREATE DATABASE %s',
-            $options['database']
-        );
+        $database = $options['database'];
+        return "CREATE DATABASE IF NOT EXISTS `$database`;";
     }
 
     public function compileDropDatabase(string $database): string
     {
-        return sprintf(
-            'DROP DATABASE %s',
-            $database
-        );
+        return "DROP DATABASE IF EXISTS `$database`;";
     }
 }

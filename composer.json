@@ -1,43 +1,38 @@
 {
-    "name": "tonysm/laravel-paratest",
+    "name": "muhmdraouf/laravel-paratest",
     "description": "Run your Laravel feature tests in parallel without race conditions.",
-    "keywords": [
-        "laravel",
-        "paratest"
-    ],
-    "homepage": "https://github.com/tonysm/laravel-paratest",
+    "keywords": [ "laravel", "paratest" ],
+    "homepage": "https://github.com/MuhmdRaouf/laravel-paratest",
     "license": "MIT",
     "type": "library",
     "authors": [
         {
-            "name": "Tony Messias",
-            "email": "tonyzrp@gmail.com",
+            "name": "Mohammed Abdel Raouf",
+            "email": "mohammed@raouf.me",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^7.3|^8.0",
         "brianium/paratest": "^6.1",
-        "illuminate/support": "^8.0"
+        "illuminate/support": "^6.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.2",
-        "phpunit/phpunit": "^9.3"
+        "orchestra/testbench": "^v4.0",
+        "phpunit/phpunit": "^9.5.0"
     },
     "autoload": {
         "psr-4": {
-            "Tonysm\\LaravelParatest\\": "src"
+            "MuhmdRaouf\\LaravelParatest\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tonysm\\LaravelParatest\\Tests\\": "tests"
+            "MuhmdRaouf\\LaravelParatest\\Tests\\": "tests"
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
+        "test": "vendor/bin/phpunit"
     },
     "config": {
         "sort-packages": true
@@ -45,10 +40,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tonysm\\LaravelParatest\\LaravelParatestServiceProvider"
+                "MuhmdRaouf\\LaravelParatest\\LaravelParatestServiceProvider"
             ],
             "aliases": {
-                "LaravelParatest": "Tonysm\\LaravelParatest\\LaravelParatestFacade"
+                "LaravelParatest": "MuhmdRaouf\\LaravelParatest\\LaravelParatestFacade"
             }
         }
     }

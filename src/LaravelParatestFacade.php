@@ -1,11 +1,11 @@
 <?php
 
-namespace Tonysm\LaravelParatest;
+namespace MuhmdRaouf\LaravelParatest;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Tonysm\LaravelParatest\Skeleton\SkeletonClass
+ * @see \MuhmdRaouf\LaravelParatest\Skeleton\SkeletonClass
  */
 class LaravelParatestFacade extends Facade
 {

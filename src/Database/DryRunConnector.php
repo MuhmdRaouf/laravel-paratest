@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database;
+namespace MuhmdRaouf\LaravelParatest\Database;
 
 use PDO;
 
@@ -18,10 +18,7 @@ class DryRunConnector implements Connector
      */
     public function exec(string $sql)
     {
-        return $this->output->writeln(sprintf(
-            '<info>[DRY RUN] %s</info>',
-            $sql
-        ));
+        return $this->output->writeln("<info>[DRY RUN] $sql</info>");
     }
 }
 

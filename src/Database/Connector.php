@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database;
+namespace MuhmdRaouf\LaravelParatest\Database;
 
 interface Connector
 {

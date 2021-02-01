@@ -1,15 +1,11 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Console;
+namespace MuhmdRaouf\LaravelParatest\Console;
 
-use Tonysm\LaravelParatest\Database\{
-    Connector,
-    PDOConnector,
-    DryRunConnector,
-    Schema\Builder,
-    Schema\GrammarFactory
-};
 use Illuminate\Console\Command;
+use MuhmdRaouf\LaravelParatest\Helper\ConfigHelper;
+use MuhmdRaouf\LaravelParatest\Database\Schema\Builder;
+use MuhmdRaouf\LaravelParatest\Database\Schema\GrammarFactory;
 
 class DbReCreateCommand extends Command
 {
@@ -46,31 +42,22 @@ class DbReCreateCommand extends Command
      */
     public function handle(GrammarFactory $grammars)
     {
-        $dryRun = (bool) $this->option('dry-run');
+        if (app()->environment('testing')) {
+            $isDryRun = ConfigHelper::isDryRun($this->option('dry-run'));
+            $configs = ConfigHelper::generateConfig($this->option('database'));
 
-        if ($dryRun) {
-            $this->info('[DRY] Running in dry-run.');
+            $builder = new Builder(
+                ConfigHelper::makeConnector($configs, $isDryRun, $this->output),
+                $grammars
+            );
+
+            $builder->recreateDatabase($configs);
+
+
+            $database = $configs['database'];
+            $this->info("Database $database re-created successfully.");
+        } else {
+            $this->warn('You are not in testing environment.');
         }
-
-        $connection = config('database.default');
-        $configs = config(sprintf('database.connections.%s', $connection));
-
-        $builder = new Builder(
-            $this->makeConnector($configs, $dryRun),
-            $grammars
-        );
-
-        $builder->recreateDatabase($configs);
-
-        $this->info(sprintf('Database "%s" re-created successfully.', $configs['database']));
-    }
-
-    private function makeConnector(array $configs, bool $dryRun = false): Connector
-    {
-        if ($dryRun === true) {
-            return new DryRunConnector($this->output);
-        }
-
-        return PDOConnector::make($configs);
     }
 }

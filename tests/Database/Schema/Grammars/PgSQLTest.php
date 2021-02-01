@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database\Schema\Grammars;
+namespace MuhmdRaouf\LaravelParatest\Database\Schema\Grammars;
 
 use PHPUnit\Framework\TestCase;
 
@@ -18,12 +18,12 @@ class PgSQLTest extends TestCase
         $grammar = new PgSQL();
         $options = [
             'database' => 'fakedb',
-            'collation' => 'utf8-collaction',
+            'collation' => 'utf8-collation',
             'charset' => 'utf8-charset',
         ];
 
         $this->assertEquals(
-            'CREATE DATABASE fakedb ENCODING \'utf8-charset\' LC_COLLATE \'utf8-collaction\';',
+            "CREATE DATABASE `fakedb` ENCODING 'utf8-charset' LC_COLLATE 'utf8-collation';",
             $grammar->compileCreateDatabase($options)
         );
     }
@@ -34,7 +34,7 @@ class PgSQLTest extends TestCase
         $grammar = new PgSQL();
 
         $this->assertEquals(
-            'DROP DATABASE IF EXISTS fakedb;',
+            'DROP DATABASE IF EXISTS `fakedb`;',
             $grammar->compileDropDatabase('fakedb')
         );
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database\Schema;
+namespace MuhmdRaouf\LaravelParatest\Database\Schema;
 
 use PHPUnit\Framework\TestCase;
 

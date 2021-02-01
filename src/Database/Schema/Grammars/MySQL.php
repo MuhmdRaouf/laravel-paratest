@@ -1,24 +1,20 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database\Schema\Grammars;
+namespace MuhmdRaouf\LaravelParatest\Database\Schema\Grammars;
 
 class MySQL implements SQL
 {
     public function compileCreateDatabase(array $options): string
     {
-        return sprintf(
-            "CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;",
-            $options['database'],
-            $options['charset'],
-            $options['collation']
-        );
+        $database = $options['database'];
+        $charset = $options['charset'];
+        $collation = $options['collation'];
+
+        return "CREATE DATABASE IF NOT EXISTS `$database` CHARACTER SET `$charset` COLLATE `$collation`;";
     }
 
     public function compileDropDatabase(string $database): string
     {
-        return sprintf(
-            'DROP DATABASE IF EXISTS %s;',
-            $database
-        );
+        return "DROP DATABASE IF EXISTS `$database`;";
     }
 }

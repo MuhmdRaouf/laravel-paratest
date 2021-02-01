@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonysm\LaravelParatest;
+namespace MuhmdRaouf\LaravelParatest;
 
 class LaravelParatest
 {

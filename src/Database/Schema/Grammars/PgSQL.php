@@ -1,26 +1,20 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database\Schema\Grammars;
+namespace MuhmdRaouf\LaravelParatest\Database\Schema\Grammars;
 
 class PgSQL implements SQL
 {
     public function compileCreateDatabase(array $options): string
     {
-        return sprintf(
-            "CREATE DATABASE %s"
-            ." ENCODING '%s'"
-            ." LC_COLLATE '%s';",
-            $options['database'],
-            $options['charset'],
-            $options['collation'] ?? 'en_US.utf8'
-        );
+        $database = $options['database'];
+        $charset = $options['charset'];
+        $collation = $options['collation'] ?? 'en_US.utf8';
+
+        return "CREATE DATABASE `$database` ENCODING '$charset' LC_COLLATE '$collation';";
     }
 
     public function compileDropDatabase(string $database): string
     {
-        return sprintf(
-            'DROP DATABASE IF EXISTS %s;',
-            $database
-        );
+        return "DROP DATABASE IF EXISTS `$database`;";
     }
 }

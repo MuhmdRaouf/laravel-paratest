@@ -1,5 +1,5 @@
 <?php
 
-class ParatestLaravelRunner extends \Tonysm\LaravelParatest\Testing\Paratest\LaravelRunner
+class ParatestLaravelRunner extends \MuhmdRaouf\LaravelParatest\Testing\Paratest\LaravelRunner
 {
 }

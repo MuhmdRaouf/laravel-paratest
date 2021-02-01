@@ -1,8 +1,8 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database\Schema;
+namespace MuhmdRaouf\LaravelParatest\Database\Schema;
 
-use Tonysm\LaravelParatest\Database\Connector;
+use MuhmdRaouf\LaravelParatest\Database\Connector;
 
 class Builder
 {
@@ -14,7 +14,8 @@ class Builder
 
     public function createDatabase(array $options)
     {
-        $grammar = $this->grammars->make($options['driver']);
+        $driver = $options['driver'];
+        $grammar = $this->grammars->make($driver);
 
         return $this->connector->exec(
             $grammar->compileCreateDatabase($options)
@@ -23,10 +24,12 @@ class Builder
 
     public function dropDatabase(array $options)
     {
-        $grammar = $this->grammars->make($options['driver']);
+        $driver = $options['driver'];
+        $database = $options['database'];
+        $grammar = $this->grammars->make($driver);
 
         return $this->connector->exec(
-            $grammar->compileDropDatabase($options['database'])
+            $grammar->compileDropDatabase($database)
         );
     }
 

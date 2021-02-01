@@ -1,9 +1,9 @@
 # Parallel Integration Tests in Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/tonysm/laravel-paratest.svg?style=flat-square)](https://packagist.org/packages/tonysm/laravel-paratest)
-[![Build Status](https://img.shields.io/travis/tonysm/laravel-paratest/master.svg?style=flat-square)](https://travis-ci.org/tonysm/laravel-paratest)
-[![Quality Score](https://img.shields.io/scrutinizer/g/tonysm/laravel-paratest.svg?style=flat-square)](https://scrutinizer-ci.com/g/tonysm/laravel-paratest)
-[![Total Downloads](https://img.shields.io/packagist/dt/tonysm/laravel-paratest.svg?style=flat-square)](https://packagist.org/packages/tonysm/laravel-paratest)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/muhmdraouf/laravel-paratest?style=flat-square&label=Packagist)](https://packagist.org/packages/muhmdraouf/laravel-paratest)
+[![Build Status](https://img.shields.io/travis/com/muhmdraouf/laravel-paratest/master?style=flat-square&label=Build)](https://travis-ci.org/muhmdraouf/laravel-paratest)
+[![Quality Score](https://img.shields.io/scrutinizer/build/g/MuhmdRaouf/laravel-paratest/master?style=flat-square&label=Code%20Quality)](https://scrutinizer-ci.com/g/muhmdraouf/laravel-paratest)
+[![Total Downloads](https://img.shields.io/packagist/dt/muhmdraouf/laravel-paratest?style=flat-square&label=Downloads)](https://packagist.org/packages/muhmdraouf/laravel-paratest)
 
 This package ships with some helper Artisan commands and testing traits to allow you running your Feature Tests in parallel using [Paratest](https://github.com/paratestphp/paratest) against a MySQL or PostgreSQL database without conflicts.
 
@@ -16,7 +16,7 @@ You also don't have to worry about creating the test databases. They will be cre
 You can install the package via composer:
 
 ```bash
-composer require tonysm/laravel-paratest --dev
+composer require muhmdraouf/laravel-paratest --dev
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ Instead of using Laravel's _RefreshDatabase_ trait, use the package one:
 ```php
 <?php
 
-use Tonysm\LaravelParatest\Testing\RefreshDatabase;
+use MuhmdRaouf\LaravelParatest\Testing\RefreshDatabase;
 
 class MyTest extends TestCase
 {
@@ -39,7 +39,7 @@ class MyTest extends TestCase
 Tip: to replace all existing usages of Laravel's RefreshDatabase trait with the package's, you can use the following command:
 
 ```bash
-grep -rl 'Illuminate\\Foundation\\Testing\\RefreshDatabase' tests/ | xargs sed -i 's/Illuminate\\Foundation\\Testing\\RefreshDatabase/Tonysm\\LaravelParatest\\Testing\\RefreshDatabase/g'
+grep -rl 'Illuminate\\Foundation\\Testing\\RefreshDatabase' tests/ | xargs sed -i 's/Illuminate\\Foundation\\Testing\\RefreshDatabase/MuhmdRaouf\\LaravelParatest\\Testing\\RefreshDatabase/g'
 ```
 
 You need to boot this setup trait in your base TestCase manually, because Laravel does not do it automatically:
@@ -49,8 +49,8 @@ You need to boot this setup trait in your base TestCase manually, because Larave
 
 namespace Tests;
 
+use MuhmdRaouf\LaravelParatest\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Tonysm\LaravelParatest\Testing\RefreshDatabase;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -59,11 +59,9 @@ abstract class TestCase extends BaseTestCase
     protected function setUpTraits()
     {
         $uses = parent::setUpTraits();
-
         if (isset($uses[RefreshDatabase::class])) {
             $this->refreshDatabase();
         }
-
         return $uses;
     }
 }
@@ -71,13 +69,13 @@ abstract class TestCase extends BaseTestCase
 
 You can keep running you tests with PHPUnit:
 
-``` php
+``` bash
 phpunit
 ```
 
 Or you can use Paratest:
 
-``` php
+``` bash
 paratest
 ```
 
@@ -90,15 +88,15 @@ When using paratest, one database will be created for each process. If you want 
             "Tests\\": "tests/"
         },
         "files": [
-            "vendor/tonysm/laravel-paratest/src/ParatestLaravelRunner.php"
+            "vendor/muhmdraouf/laravel-paratest/src/ParatestLaravelRunner.php"
         ]
     }
 }
 ```
 
-Now, run `composer dump -o`, and then you can use the runner, like so:
+Now, run `composer dump-autoload --optimize`, and then you can use the runner, like so:
 
-```php
+```bash
 paratest --runner ParatestLaravelRunner
 ```
 
@@ -110,7 +108,7 @@ This package also gives you the following Artisan commands:
 - `php artisan db:drop`
 - `php artisan db:recreate`
 
-Use it wisely.
+**THESE COMMANDS RUN ONLY IN TESTING ENVIRONMENT.**
 
 ### Testing
 
@@ -128,7 +126,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
 
-If you discover any security related issues, please email tonyzrp@gmail.com instead of using the issue tracker.
+If you discover any security related issues, please email mohammed@raouf.me instead of using the issue tracker.
 
 ## Credits
 

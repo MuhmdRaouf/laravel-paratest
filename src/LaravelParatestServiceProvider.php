@@ -1,11 +1,11 @@
 <?php
 
-namespace Tonysm\LaravelParatest;
+namespace MuhmdRaouf\LaravelParatest;
 
 use Illuminate\Support\ServiceProvider;
-use Tonysm\LaravelParatest\Console\DbCreateCommand as DbCreateCLICommand;
-use Tonysm\LaravelParatest\Console\DbReCreateCommand as DbReCreateCLICommand;
-use Tonysm\LaravelParatest\Console\DbDropCommand as DbDropCLICommand;
+use MuhmdRaouf\LaravelParatest\Console\DbCreateCommand as DbCreateCLICommand;
+use MuhmdRaouf\LaravelParatest\Console\DbReCreateCommand as DbReCreateCLICommand;
+use MuhmdRaouf\LaravelParatest\Console\DbDropCommand as DbDropCLICommand;
 
 class LaravelParatestServiceProvider extends ServiceProvider
 {

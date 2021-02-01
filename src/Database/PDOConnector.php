@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database;
+namespace MuhmdRaouf\LaravelParatest\Database;
 
 use PDO;
 
@@ -13,13 +13,13 @@ class PDOConnector implements Connector
 
     public static function make(array $configs): PDOConnector
     {
-        $host = sprintf(
-            '%s:host=%s',
-            $configs['driver'],
-            $configs['host'] ?? '127.0.0.1'
-        );
+        $driver = $configs['driver'];
+        $host = $configs['host'] ?? '127.0.0.1';
+        $username = $configs['username'];
+        $password = $configs['password'];
 
-        $pdo = new PDO($host, $configs['username'], $configs['password']);
+        $host = "$driver:host=$host";
+        $pdo = new PDO($host, $username, $password);
 
         return new static($pdo);
     }

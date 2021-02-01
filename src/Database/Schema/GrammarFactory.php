@@ -1,6 +1,6 @@
 <?php
 
-namespace Tonysm\LaravelParatest\Database\Schema;
+namespace MuhmdRaouf\LaravelParatest\Database\Schema;
 
 use RuntimeException;
 
@@ -14,7 +14,7 @@ class GrammarFactory
     public function make(string $driver): Grammars\SQL
     {
         if (!array_key_exists($driver, static::$availableOptions)) {
-            throw new RuntimeException(sprintf('Unkown driver "%s".', $driver));
+            throw new RuntimeException("Unknown driver $driver");
         }
 
         $grammar = static::$availableOptions[$driver];
